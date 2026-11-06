@@ -1,0 +1,44 @@
+
+# Raw and processed datasets
+data/raw/
+data/processed/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and log files
+*.log
+*.tmp
+
+# Python testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Power BI temporary and backup files
+*.tmp
+*.bak
