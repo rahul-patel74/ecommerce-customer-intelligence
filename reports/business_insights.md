@@ -254,3 +254,40 @@ Recorded payment value is not equivalent to profit or accounting revenue.
 ### Business Implication
 
 Customer retention and purchase frequency may be more important opportunities than simply increasing average transaction value.
+
+
+## Analysis 08: RFM Customer Segmentation
+
+### Segment Results
+
+| Segment | Customers | Percentage | Avg Recency | Avg Frequency | Avg Monetary |
+|---|---:|---:|---:|---:|---:|
+| Recent One-time Customers | 36,118 | 38.69% | 90.90 | 1.00 | 164.29 |
+| High-Value One-time Lapsed | 21,024 | 22.52% | 394.51 | 1.00 | 239.34 |
+| Needs Attention | 18,614 | 19.94% | 220.21 | 1.03 | 155.76 |
+| Hibernating | 15,368 | 16.46% | 396.42 | 1.00 | 55.74 |
+| Potential Loyalists | 1,080 | 1.16% | 89.00 | 2.00 | 296.99 |
+| At Risk | 997 | 1.07% | 381.80 | 2.08 | 295.47 |
+| Loyal Customers | 125 | 0.13% | 126.94 | 3.14 | 460.08 |
+| Champions | 32 | 0.03% | 83.56 | 4.97 | 873.64 |
+
+### Business Insights
+
+- Recent One-time Customers form the largest segment at 38.69%.
+- High-Value One-time Lapsed Customers represent 22.52% of the customer base.
+- Hibernating customers have the lowest average recorded payment value.
+- Champions represent only 32 customers but have the highest average Monetary value.
+- Potential Loyalists represent an opportunity to encourage repeat purchases.
+
+### Methodology
+
+- Recency was calculated using the latest delivered purchase date plus one day as the reference date.
+- Frequency counts distinct delivered orders.
+- Monetary represents total recorded payment value.
+- Recency and Monetary scores use percentile-based scoring.
+- Frequency uses business-defined thresholds due to the highly skewed purchase-frequency distribution.
+- All customers were assigned exactly one segment using ordered CASE conditions.
+
+### Limitation
+
+RFM segments describe historical purchasing behaviour within the available dataset period. They do not establish future purchasing intentions or predict actual customer lifetime value.
