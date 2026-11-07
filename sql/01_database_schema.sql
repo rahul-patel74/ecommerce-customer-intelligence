@@ -113,8 +113,8 @@ CREATE TABLE category_translation (
 CREATE TABLE geolocation (
     geolocation_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     geolocation_zip_code_prefix VARCHAR(10),
-    geolocation_lat DECIMAL(10,7),
-    geolocation_lng DECIMAL(10,7),
+    geolocation_lat DECIMAL(23,20),
+    geolocation_lng DECIMAL(23,20),
     geolocation_city VARCHAR(100),
     geolocation_state CHAR(2)
 );
