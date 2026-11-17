@@ -1,29 +1,42 @@
 # E-commerce Customer Intelligence & Retention Analytics
 
-An end-to-end data analytics project using Python, MySQL and Power BI to investigate customer purchasing behavior, customer value, RFM segmentation and repeat-purchase retention.
+An end-to-end data analytics project using Python, MySQL and Power BI to explore customer purchasing behavior, spending patterns, RFM segmentation and repeat-purchase retention.
 
-## Project Overview
+**Repository:** [GitHub - E-commerce Customer Intelligence](https://github.com/rahul-patel74/ecommerce-customer-intelligence)
 
-Understanding customer behavior is essential for improving customer retention and long-term business performance.
+---
 
-This project analyzes the Brazilian E-Commerce Public Dataset by Olist to investigate how customers purchase, how frequently they return, how much they spend and how customer groups behave over time.
+## 1. Project Overview
 
-The project combines Python-based data exploration and cleaning, relational data analysis using MySQL, and interactive reporting using Power BI.
+Customer retention and purchasing behavior are important factors in understanding long-term business performance.
 
-## Business Objectives
+This project analyzes the Brazilian E-Commerce Public Dataset by Olist to investigate how customers purchase, how frequently they return, how much they spend and how different customer groups behave over time.
+
+The project follows an end-to-end analytics workflow involving:
+
+- Python for data understanding and data-quality exploration.
+- MySQL for relational database management and SQL-based business analysis.
+- Power BI for interactive visualization and customer retention reporting.
+
+The objective is to translate raw e-commerce data into meaningful business insights that can support customer analysis and retention strategies.
+
+## 2. Business Objectives
 
 - Understand customer purchasing behavior and purchase frequency.
 - Identify one-time and repeat customers.
-- Analyze customer spending patterns and geographic distribution.
+- Analyze customer spending patterns.
+- Examine geographic distribution of customers.
 - Segment customers using Recency, Frequency and Monetary (RFM) analysis.
-- Evaluate customer retention through monthly cohort analysis.
-- Identify opportunities for customer engagement and retention improvement.
+- Evaluate repeat-purchase behavior through monthly cohort analysis.
+- Identify potential opportunities for customer engagement and retention improvement.
 
-## Dataset
+## 3. Dataset
 
-**Source:** [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+**Dataset:** Brazilian E-Commerce Public Dataset by Olist
 
-The dataset contains Brazilian e-commerce transactions and related information covering 2016–2018.
+**Source:** [Kaggle Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+
+The dataset contains historical Brazilian e-commerce transactions and related information covering 2016–2018.
 
 It consists of nine CSV files:
 
@@ -39,167 +52,284 @@ It consists of nine CSV files:
 | Geolocation | 1,000,163 |
 | Category Translation | 71 |
 
-The nine datasets were loaded into a relational MySQL database and connected through primary and foreign key relationships where appropriate.
+The nine datasets were imported into a relational MySQL database containing nine corresponding tables.
 
-**Note:** The raw dataset is not included in this repository. Download it from Kaggle and place the CSV files in the `data/raw/` directory.
+Relationships were established using primary and foreign keys where appropriate.
 
-## Technology Stack
+**Dataset availability:** The raw CSV files are not included in this repository. Download the dataset from Kaggle and place the files inside the local `data/raw/` directory.
+
+The raw and processed data directories are excluded from Git through `.gitignore`.
+
+## 4. Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| Python | Data exploration, cleaning and analysis |
-| Pandas and NumPy | Data manipulation and transformation |
-| Jupyter Notebook | Exploratory analysis and documentation |
-| MySQL | Relational database and business analysis |
-| SQL | Joins, aggregations, CTEs, window functions and cohort analysis |
+| Python | Data understanding and quality exploration |
+| Pandas | Data inspection and manipulation |
+| NumPy | Numerical operations |
+| Jupyter Notebook | Interactive Python analysis |
+| MySQL | Relational database management |
+| SQL | Joins, aggregations, CTEs and window functions |
 | Power BI | Interactive dashboard and visualization |
 | DAX | KPI calculations and analytical measures |
-| Git and GitHub | Version control and project management |
+| Git & GitHub | Version control and project management |
 
-## Project Workflow
+## 5. Project Workflow
 
-### 1. Data Understanding and Quality Assessment
+### 5.1 Data Understanding and Quality Assessment
 
-- Inspected all nine datasets and their structures.
-- Examined data types, missing values and duplicate records.
-- Investigated primary keys, composite keys and relationships.
-- Identified unmatched lookup records and unusual order lifecycle cases.
-- Documented data-quality findings before performing business analysis.
-
-### 2. Data Cleaning and Preparation
-
-Used Python to inspect and prepare the datasets.
+Used Python and Pandas to inspect the nine source datasets and understand their structure.
 
 Activities included:
 
+- Dataset dimensions and column inspection.
+- Data type examination.
 - Missing-value analysis.
-- Duplicate investigation.
-- Data type validation.
-- Timestamp handling.
-- Key and relationship validation.
-- Review text normalization.
-- Documentation of data-quality issues and limitations.
+- Exact duplicate investigation.
+- Primary and composite key validation.
+- Duplicate review ID investigation.
+- Geolocation duplicate analysis.
+- ZIP-code and product-category lookup validation.
+- Identification of unmatched records and unusual data patterns.
 
-The original records were retained where duplicates or unmatched values could not be established as data errors.
+The findings and data-quality issues were documented before proceeding with the SQL analysis.
 
-### 3. MySQL Database and SQL Analysis
+### 5.2 MySQL Database Design and Data Loading
 
-Created the `ecommerce_customer_intelligence` database with nine relational tables.
+Created the MySQL database:
 
-Performed SQL analysis using joins, aggregate functions, Common Table Expressions (CTEs), subqueries and window functions.
+`ecommerce_customer_intelligence`
 
-The analyses covered:
+Designed and implemented nine relational tables:
 
-- Overall customer purchasing behavior.
-- One-time versus repeat customers.
+- customers
+- orders
+- order_items
+- payments
+- reviews
+- products
+- sellers
+- geolocation
+- category_translation
+
+Implemented:
+
+- Primary key constraints.
+- Composite primary keys.
+- Foreign key relationships.
+- Appropriate data types.
+- Timestamp conversions.
+- Data loading using `LOAD DATA INFILE`.
+- Data validation and reconciliation.
+
+All nine source datasets were successfully imported and their final row counts were verified.
+
+### 5.3 SQL Business Analysis
+
+Performed business analysis using MySQL and SQL concepts, including:
+
+- INNER JOIN and LEFT JOIN.
+- Aggregate functions.
+- GROUP BY and HAVING.
+- Subqueries.
+- Common Table Expressions (CTEs).
+- Window functions.
+- Date and time functions.
+- Conditional aggregation.
+- Recursive CTEs.
+- Analytical views.
+
+The analysis focused on customer purchasing behavior, spending patterns, geographic distribution, RFM segmentation and cohort retention.
+
+### 5.4 Customer Purchasing Behavior
+
+Analyzed customer purchase frequency and spending behavior.
+
+The analysis included:
+
+- One-time versus repeat customer identification.
 - Purchase frequency distribution.
-- Customer spending patterns.
-- High-value customers.
+- Customer spending by purchase frequency.
+- Top customers by recorded payment value.
+- Investigation of high-value transactions.
 - Geographic customer distribution.
 - Average payment per delivered order.
-- RFM customer segmentation.
-- Monthly cohort retention.
 
-### 4. RFM Customer Segmentation
+Customer identity was determined using `customer_unique_id`, which identifies the shopper across order-specific customer records.
 
-Applied RFM analysis using:
+Only delivered orders were included in these customer behavior analyses.
 
-- **Recency:** Days since the customer's latest delivered purchase.
-- **Frequency:** Number of delivered purchases.
-- **Monetary:** Total recorded payment associated with delivered purchases.
+### 5.5 RFM Customer Segmentation
 
-Created customer segments using RFM scores:
+Implemented Recency, Frequency and Monetary analysis to understand customer value and purchasing behavior.
 
-- Champions
-- Loyal Customers
-- Potential Loyalists
-- Recent One-time Customers
-- At Risk
-- High-Value One-time Lapsed
-- Hibernating
-- Needs Attention
+The three dimensions were calculated as follows:
 
-Created the MySQL view `vw_customer_rfm` to make the customer-level segmentation available for further analysis.
+| Metric | Definition |
+|---|---|
+| Recency | Days since the customer's latest delivered purchase |
+| Frequency | Number of delivered purchases |
+| Monetary | Total recorded payment value associated with delivered purchases |
 
-### 5. Cohort Retention Analysis
+Customers were assigned RFM scores and classified into eight segments:
 
-Performed monthly cohort analysis to understand repeat-purchase behavior over time.
+1. Champions
+2. Loyal Customers
+3. Potential Loyalists
+4. Recent One-time Customers
+5. At Risk
+6. High-Value One-time Lapsed
+7. Hibernating
+8. Needs Attention
 
-The analysis includes:
+A MySQL view named `vw_customer_rfm` was created to provide customer-level RFM metrics, scores and segment classifications.
 
-- First delivered purchase month as the cohort assignment.
+### 5.6 Cohort Retention Analysis
+
+Performed monthly cohort analysis to understand how frequently customers returned after their first delivered purchase.
+
+The analysis included:
+
+- Customer cohort assignment based on first delivered purchase month.
 - Monthly delivered purchase activity.
-- Cohort size and retained customer counts.
-- Complete retention matrix, including observed months with zero returning customers.
-- Month 1 retention by acquisition cohort.
-- Weighted retention trend across cohort ages.
+- Cohort size calculation.
+- Monthly retained customer counts.
+- Complete cohort retention matrix.
+- Month 1 retention comparison across cohorts.
+- Weighted retention trend by cohort age.
 
-Created the MySQL view `vw_cohort_retention` containing 278 cohort-month records across 23 monthly cohorts.
+A MySQL view named `vw_cohort_retention` was created for Power BI reporting.
 
-## Key Business Findings
+The view contains **278 cohort-month records across 23 monthly cohorts**, including observed months with zero returning customers.
 
-### Customer Purchasing Behavior
+Future months without observed activity are excluded.
 
-- Identified **93,358 unique customers** with at least one delivered purchase.
-- 90,557 customers made only one delivered purchase.
-- 2,801 customers made repeat delivered purchases.
-- Repeat customers represented approximately **3.00%** of delivered customers.
+## 6. Key Business Findings
+
+### 6.1 Customer Purchasing Behavior
+
+Out of 93,358 unique customers with at least one delivered purchase:
+
+| Customer Type | Customers | Percentage |
+|---|---:|---:|
+| One-time customers | 90,557 | 97.00% |
+| Repeat customers | 2,801 | 3.00% |
+| Total | 93,358 | 100.00% |
+
+Key observations:
+
+- Approximately 97% of customers made only one delivered purchase.
+- Only 3% made repeat delivered purchases.
 - The average number of delivered orders per customer was approximately 1.03.
 
-### Customer Spending
+This indicates that repeat purchasing is relatively uncommon in the observed dataset.
 
-- One-time customers accounted for approximately 94.40% of recorded delivered-order payment value.
-- Repeat customers had higher average spending per customer, at approximately 308.59 compared with 160.76 for one-time customers.
-- However, repeat customers had a lower average payment per delivered order, at approximately 145.98 compared with 160.76 for one-time customers.
+### 6.2 Customer Spending Analysis
 
-### RFM Segmentation
+| Metric | One-time Customers | Repeat Customers |
+|---|---:|---:|
+| Customers | 90,557 | 2,801 |
+| Recorded Payment Value | 14,558,104.56 | 864,357.21 |
+| Average Payment per Customer | 160.76 | 308.59 |
+| Share of Payment Value | 94.40% | 5.60% |
 
-- Recent One-time Customers: 36,118 customers (38.69%).
-- High-Value One-time Lapsed: 21,024 customers (22.52%).
-- Needs Attention: 18,614 customers (19.94%).
-- Hibernating: 15,368 customers (16.46%).
-- Champions: 32 customers (0.03%).
+Key observations:
 
-The segmentation highlights a large population of one-time customers and potential opportunities for targeted retention and re-engagement initiatives.
+- Repeat customers generate higher average recorded payment value per customer.
+- Repeat customers contribute approximately 5.60% of recorded payment value despite representing only 3% of customers.
+- One-time customers contribute the majority of recorded payment value because they represent most of the customer base.
+- Average payment per paid delivered order is 160.76 for one-time customers and 145.98 for repeat customers.
 
-### Cohort Retention
+These measures describe recorded customer payments, not business profit or complete customer lifetime value.
 
-- Weighted Month 1 retention was approximately **0.48%**.
-- 421 customers returned in Month 1 out of 87,214 customers belonging to cohorts with a complete Month 1 observation.
+### 6.3 RFM Segmentation Results
+
+| Customer Segment | Customers | Percentage |
+|---|---:|---:|
+| Recent One-time Customers | 36,118 | 38.69% |
+| High-Value One-time Lapsed | 21,024 | 22.52% |
+| Needs Attention | 18,614 | 19.94% |
+| Hibernating | 15,368 | 16.46% |
+| Potential Loyalists | 1,080 | 1.16% |
+| At Risk | 997 | 1.07% |
+| Loyal Customers | 125 | 0.13% |
+| Champions | 32 | 0.03% |
+
+Key observations:
+
+- Recent One-time Customers represent the largest segment.
+- A substantial number of customers belong to the High-Value One-time Lapsed segment.
+- Champions and Loyal Customers represent a very small share of the customer base.
+- The segmentation highlights potential candidates for different customer engagement and re-engagement strategies.
+
+RFM segments represent historical observed purchasing behavior and do not establish future customer intent.
+
+### 6.4 Cohort Retention Findings
+
+The weighted Month 1 retention rate was approximately **0.48%**.
+
+| Cohort Age | Eligible Customers | Retained Customers | Weighted Retention |
+|---|---:|---:|---:|
+| Month 0 | 93,358 | 93,358 | 100.00% |
+| Month 1 | 87,214 | 421 | 0.48% |
+| Month 2 | 81,265 | 273 | 0.34% |
+| Month 3 | 75,387 | 192 | 0.25% |
+| Month 6 | 55,525 | 129 | 0.23% |
+| Month 9 | 37,057 | 60 | 0.16% |
+| Month 12 | 21,665 | 36 | 0.17% |
+| Month 17 | 5,112 | 10 | 0.20% |
+
+Key observations:
+
+- Only 421 customers returned in Month 1 out of 87,214 eligible customers.
 - Weighted retention declined to approximately 0.34% in Month 2 and 0.25% in Month 3.
-- Repeat purchasing remained generally low across the observed cohort ages.
+- Retention remained generally low across subsequent observed cohort ages.
+- Later cohort ages have smaller eligible populations, so their percentages require cautious interpretation.
 
-These findings suggest that encouraging repeat purchases is an important area for further investigation.
+The analysis measures monthly purchasing activity rather than continuous retention. Customers may skip months and return later.
 
-## Power BI Dashboard
+## 7. Power BI Dashboard
 
-The Power BI dashboard presents the cohort retention analysis through:
+An interactive Power BI dashboard was developed to present the cohort retention analysis.
 
-- KPI cards showing total customers, cohorts analyzed, Month 1 returning customers and Month 1 retention.
-- A customer cohort retention heatmap.
-- A weighted customer retention trend chart.
+### Dashboard Features
 
-The heatmap highlights differences in retention across acquisition cohorts and subsequent months. Blank cells represent periods that were not observed in the dataset, rather than months with zero retention.
+**KPI Cards**
+
+- Total Customers: 93,358
+- Cohorts Analyzed: 23
+- Month 1 Returning Customers: 421
+- Month 1 Retention Rate: 0.48%
+
+**Cohort Retention Heatmap**
+
+- Acquisition cohorts displayed as rows.
+- Cohort age displayed as columns.
+- Conditional formatting to highlight retention patterns.
+- Blank cells used for future or unobserved months.
+- Zero-retention months retained as observed zero values.
+
+**Weighted Retention Trend**
+
+- Displays weighted monthly retention across cohort ages.
+- Focuses on Months 1–17 to make repeat-purchase behavior easier to examine.
+- Excludes the initial purchase month from the trend visualization because its 100% retention would dominate the scale.
+
+### Dashboard Preview
 
 ![Customer Cohort Retention Dashboard](powerbi/ecommerce_customer_cohort_dashboard.png)
 
-**Dashboard file:** `powerbi/ecommerce_customer_cohort_analysis.pbix`
+**Power BI File:** `powerbi/ecommerce_customer_cohort_analysis.pbix`
 
-<!-- Add a dashboard screenshot here after saving it in the repository. -->
+The PBIX file can be opened using Power BI Desktop. The MySQL connection must be configured for the local database environment.
 
-## Repository Structure
+## 8. Repository Structure
 
 ```text
 ecommerce-customer-intelligence/
 │
-├── data/
-│   ├── raw/
-│   └── processed/
-│
 ├── notebooks/
-│   ├── 01_data_understanding.ipynb
-│   ├── 02_data_cleaning.ipynb
-│   └── 03_customer_analysis.ipynb
+│   └── 01_data_understanding.ipynb
 │
 ├── powerbi/
 │   ├── ecommerce_customer_cohort_dashboard.png
@@ -218,88 +348,123 @@ ecommerce-customer-intelligence/
 │   ├── 04_cohort_analysis.sql
 │   └── 05_load_data.sql
 │
-├── src/
-│   ├── __init__.py
-│   ├── cleaning.py
-│   └── validation.py
-│
-├── tests/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
 ```
 
-## How to Reproduce the Project
+**Local data directory (not committed):**
 
-### 1. Download the Dataset
+```text
+data/
+├── raw/
+└── processed/
+```
 
-Download the Brazilian E-Commerce Public Dataset from Kaggle and place the nine CSV files inside `data/raw/`.
+The `data/raw/` and `data/processed/` directories are excluded from Git to avoid committing the large source and processed datasets.
 
-### 2. Set Up Python
+## 9. How to Reproduce the Project
 
-Create and activate a virtual environment:
+### Step 1: Download the Dataset
+
+Download the Brazilian E-Commerce Public Dataset from Kaggle.
+
+Create the local directory:
+
+```text
+data/raw/
+```
+
+Place all nine CSV files inside this directory.
+
+### Step 2: Set Up Python
+
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-On Windows Command Prompt:
+Activate it on Windows Command Prompt:
 
 ```cmd
 .venv\Scripts\activate
 ```
 
-Install the project dependencies:
+Install the required packages:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the Notebooks
+### Step 3: Run the Python Notebook
 
-Run the notebooks in sequence:
+Open:
 
-1. `01_data_understanding.ipynb`
-2. `02_data_cleaning.ipynb`
-3. `03_customer_analysis.ipynb`
+```text
+notebooks/01_data_understanding.ipynb
+```
 
-### 4. Set Up MySQL
+Run the notebook cells in sequence to explore the datasets and perform data-quality checks.
 
-Run the SQL scripts in the following order in a fresh database environment:
+Make sure the notebook's relative data path points to the local `data/raw/` directory.
 
-1. `00_create_database.sql`
-2. `01_database_schema.sql`
-3. `05_load_data.sql`
-4. `02_customer_analysis.sql`
-5. `03_rfm_segmentation.sql`
-6. `04_cohort_analysis.sql`
+### Step 4: Set Up MySQL
 
-Update local file paths and MySQL import settings where required. The data-loading script is intended for empty tables in a fresh database. Do not run it again against an already populated database without preparing the tables first.
+Use MySQL 8.0 or later.
 
-### 5. Open the Power BI Dashboard
+Execute the SQL scripts in this order in a fresh database environment:
 
-Install the MySQL Connector/NET required by the Power BI MySQL connector, configure the database connection and load the analytical views where needed.
+1. `sql/00_create_database.sql`
+2. `sql/01_database_schema.sql`
+3. `sql/05_load_data.sql`
+4. `sql/02_customer_analysis.sql`
+5. `sql/03_rfm_segmentation.sql`
+6. `sql/04_cohort_analysis.sql`
 
-Open the `.pbix` file in Power BI Desktop.
+**Important data-loading notes:**
 
-## Limitations
+- The data-loading script uses server-side `LOAD DATA INFILE`.
+- Copy the source CSV files into the directory permitted by MySQL's `secure_file_priv` setting.
+- Update the file paths in the load script according to the local MySQL configuration.
+- The loading script is intended for empty tables in a fresh database. Do not execute it against an already populated database without preparing the tables.
 
-- The dataset represents historical transactions from 2016–2018 and does not represent current customer activity.
-- The analysis measures delivered purchases; other order statuses are excluded from the customer retention calculations.
-- Monthly cohort retention measures activity in a calendar month, not continuous monthly retention.
-- Later cohort ages have fewer eligible customers because the dataset ends in August 2018.
-- RFM segments describe observed historical behavior and do not establish future customer intent.
-- The analysis is observational and does not establish the causes of low repeat purchasing.
+### Step 5: Open the Power BI Dashboard
 
-## Project Outcome
+1. Install MySQL Connector/NET if required by Power BI Desktop.
+2. Open the PBIX file.
+3. Configure the local MySQL database connection.
+4. Load the required analytical view.
+5. Refresh the report after configuring the connection.
 
-This project demonstrates an end-to-end analytics workflow, from multi-table dataset exploration and preparation to relational SQL analysis, customer segmentation, cohort retention and Power BI reporting.
+## 10. Data Limitations
 
-It applies practical data analytics techniques to a real-world e-commerce dataset and translates analytical results into business-oriented findings.
+- The dataset contains historical transactions from 2016–2018 and does not represent current customer activity.
+- Customer purchasing and retention analyses include delivered orders.
+- Monthly cohort retention measures activity within calendar months, not continuous monthly purchasing.
+- Later cohort ages have fewer eligible customers because the observed delivered activity ends in August 2018.
+- RFM segments describe historical customer behavior and should not be interpreted as predictions of future purchases.
+- The dataset does not establish the reasons behind low repeat purchasing.
+- Recorded payment value is not equivalent to profit, net revenue or complete customer lifetime value.
+- Unmatched geographic and category lookup records were retained and documented rather than assigned invented values.
+
+## 11. Project Outcome
+
+This project demonstrates an end-to-end data analytics workflow involving:
+
+- Multi-table dataset exploration and data-quality assessment.
+- Relational database design and data loading.
+- SQL-based customer and business analysis.
+- Customer segmentation using RFM methodology.
+- Monthly cohort retention analysis.
+- Interactive Power BI dashboard development.
+- Business insight interpretation and technical documentation.
+
+The project applies practical data analytics techniques to a real-world e-commerce dataset and translates analytical results into business-oriented findings.
 
 ---
 
 - **Project:** E-commerce Customer Intelligence & Retention Analytics
 - **Domain:** E-commerce / Customer Analytics
-- **Tools:** Python, MySQL, SQL, Power BI and DAX
+- **Tools:** Python, Pandas, NumPy, MySQL, SQL, Power BI and DAX
 - **Dataset:** Olist Brazilian E-Commerce Public Dataset
