@@ -291,3 +291,166 @@ Customer retention and purchase frequency may be more important opportunities th
 ### Limitation
 
 RFM segments describe historical purchasing behaviour within the available dataset period. They do not establish future purchasing intentions or predict actual customer lifetime value.
+
+
+## Analysis 09: Monetary Contribution by RFM Segment
+
+### Results
+
+| Customer Segment | Customers | Total Monetary | Contribution | Average Monetary |
+|---|---:|---:|---:|---:|
+| Recent One-time Customers | 36,118 | 5,933,990.14 | 38.48% | 164.29 |
+| High-Value One-time Lapsed | 21,024 | 5,031,852.17 | 32.63% | 239.34 |
+| Needs Attention | 18,614 | 2,899,230.62 | 18.80% | 155.76 |
+| Hibernating | 15,368 | 856,583.73 | 5.55% | 55.74 |
+| Potential Loyalists | 1,080 | 320,754.35 | 2.08% | 296.99 |
+| At Risk | 997 | 294,583.92 | 1.91% | 295.47 |
+| Loyal Customers | 125 | 57,510.37 | 0.37% | 460.08 |
+| Champions | 32 | 27,956.47 | 0.18% | 873.64 |
+
+### Business Insights
+
+- Recent One-time Customers contribute the largest share of recorded payment value at 38.48%.
+- High-Value One-time Lapsed Customers contribute 32.63%, making them a potentially valuable re-engagement audience.
+- Needs Attention contributes 18.80%.
+- The top three segments collectively account for 89.91% of recorded payment value.
+- Champions have the highest average monetary value but represent only 0.18% of total monetary contribution.
+- Hibernating customers have the lowest average monetary value at 55.74.
+
+### Business Implications
+
+- Encourage repeat purchases among Recent One-time Customers.
+- Investigate re-engagement opportunities for High-Value One-time Lapsed Customers.
+- Prioritize customer engagement strategies based on both segment size and historical spending.
+- Consider personalized retention approaches for Champions and Loyal Customers.
+
+### Methodology
+
+Segment monetary contribution was calculated using the `vw_customer_rfm` view.
+
+Monetary represents the sum of recorded payments associated with delivered orders during the available dataset period.
+
+It is not equivalent to profit or accounting revenue.
+
+
+## Analysis 10: High-Value One-time Lapsed Customers
+
+### Segment Overview
+
+- Total customers in segment: 21,024
+- Average recency: 394.51 days
+- Average frequency: 1.00 delivered orders
+- Average monetary value: 239.34
+
+### Top 20 Customer Findings
+
+- All 20 highest-spending customers in this segment have a Frequency score of 1.
+- All have a Monetary score of 5.
+- Their Recency scores are either 1 or 2.
+- Their historical spending ranges from 3,016.01 to 13,664.08 among the top 20.
+
+### RFM Code Distribution
+
+| RFM Code | Interpretation | Customers |
+|---|---|---:|
+| 115 | Lowest Recency score, lowest Frequency score, highest Monetary score | 15 |
+| 215 | Second-lowest Recency score, lowest Frequency score, highest Monetary score | 5 |
+
+### Business Insights
+
+- Customers can generate substantial historical payment value without becoming repeat purchasers.
+- All 20 highest-spending customers in this segment have only one delivered order.
+- These customers represent potential re-engagement opportunities because of their historical monetary value.
+- High-value lapsed customers may deserve different engagement strategies from low-value inactive customers.
+
+### Suggested Business Action
+
+Consider targeted win-back campaigns based on historical spending, with different incentives for higher-value customers.
+
+### Data Limitation
+
+The dataset covers historical transactions from 2016–2018. The analysis identifies historical customer behaviour and does not establish whether these customers are currently reachable or likely to purchase again.
+
+The monetary metric represents recorded payment value, not profit or complete customer lifetime value.
+
+
+## Analysis 11: Month 1 Cohort Retention
+
+### Overall Result
+
+The weighted Month 1 retention rate across cohorts with a complete Month 1 observation was approximately 0.48%.
+
+- Eligible cohort customers: 87,214
+- Customers returning in Month 1: 421
+- Weighted Month 1 retention: 0.48%
+
+### Selected Cohort Results
+
+| Cohort | Cohort Size | Month 1 Returning Customers | Retention |
+|---|---:|---:|---:|
+| August 2017 | 4,057 | 28 | 0.69% |
+| September 2017 | 4,004 | 28 | 0.70% |
+| October 2017 | 4,328 | 31 | 0.72% |
+| November 2017 | 7,060 | 40 | 0.57% |
+| April 2018 | 6,582 | 39 | 0.59% |
+
+### Business Insights
+
+- Month 1 customer retention is consistently low across the observed cohorts.
+- October 2017 recorded the highest Month 1 retention among the substantial cohorts shown, at 0.72%.
+- Larger acquisition cohorts do not necessarily have higher retention percentages.
+- Small cohorts can produce misleadingly high retention percentages. December 2016 recorded 100% retention from a single customer.
+- Customer repeat purchasing is an important area for further investigation.
+
+### Methodology
+
+- Customers were assigned to cohorts using their first delivered purchase month.
+- Month 1 represents the next calendar month after the cohort month.
+- Customers were counted using customer_unique_id.
+- Only delivered orders were included.
+- The August 2018 cohort was excluded because September 2018 activity is unavailable.
+- The overall retention rate uses a weighted calculation across eligible cohort customers.
+
+### Data Limitation
+
+The dataset only contains historical purchase activity through August 2018. Recent cohorts have fewer observable months than older cohorts. Retention comparisons must account for this difference.
+
+
+## Analysis 12: Weighted Customer Retention by Cohort Age
+
+### Overall Results
+
+The weighted retention analysis shows that repeat purchasing is uncommon across the observed customer cohorts.
+
+| Cohort Age | Eligible Customers | Retained Customers | Weighted Retention |
+|---:|---:|---:|---:|
+| Month 0 | 93,358 | 93,358 | 100.00% |
+| Month 1 | 87,214 | 421 | 0.48% |
+| Month 2 | 81,265 | 273 | 0.34% |
+| Month 3 | 75,387 | 192 | 0.25% |
+| Month 6 | 55,525 | 129 | 0.23% |
+| Month 9 | 37,057 | 60 | 0.16% |
+| Month 12 | 21,665 | 36 | 0.17% |
+| Month 17 | 5,112 | 10 | 0.20% |
+
+### Business Insights
+
+- Month 1 weighted retention is approximately 0.48%, indicating that very few customers make another delivered purchase in the calendar month following their first purchase.
+- Retention falls to approximately 0.34% in Month 2 and 0.25% in Month 3.
+- From Month 3 onward, retention remains generally low, with modest fluctuations across later cohort ages.
+- Retention percentages do not decline in a perfectly straight line because the eligible cohort population changes at each cohort age.
+- Later cohort ages have smaller eligible populations. Their percentages should therefore be interpreted cautiously.
+- These results suggest that repeat purchasing and customer retention are important areas for further business investigation.
+
+### Methodology
+
+- Cohorts are based on each customer's first delivered purchase month.
+- Activity is measured using delivered purchases in each subsequent calendar month.
+- Customer identity is determined using customer_unique_id.
+- Weighted retention is calculated as total retained customers divided by total eligible customers across the cohorts observable at that cohort age.
+- Month 0 represents the initial purchase month and therefore has 100% retention.
+- Only observed months are included; future, unobserved months are excluded.
+
+### Data Limitations
+
+This analysis measures monthly purchasing activity, not continuous customer retention. Customers may skip months and return later. The dataset ends in August 2018, meaning later cohort ages contain fewer eligible cohorts and customers.
