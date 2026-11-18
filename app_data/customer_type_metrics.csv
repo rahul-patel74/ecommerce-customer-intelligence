@@ -1,0 +1,3 @@
+customer_type,customer_count,delivered_orders,paid_orders,recorded_payment_value,average_payment_per_customer,average_payment_per_paid_order
+One-time customers,90557,90557,90556,14558104.56,160.76,160.76
+Repeat customers,2801,5921,5921,864357.21,308.59,145.98

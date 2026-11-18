@@ -1,0 +1,143 @@
+{
+  "project": "E-commerce Customer Intelligence & Retention Analytics",
+  "database": "ecommerce_customer_intelligence",
+  "generated_at_utc": "2026-11-18T11:46:20.620112+00:00",
+  "export_version": 2,
+  "dataset_count": 16,
+  "datasets": [
+    {
+      "dataset": "overview_kpis",
+      "file": "overview_kpis.csv",
+      "rows": 1,
+      "columns": 8,
+      "size_bytes": 238,
+      "description": "Full-period customer KPIs from vw_customer_rfm."
+    },
+    {
+      "dataset": "monthly_performance",
+      "file": "monthly_performance.csv",
+      "rows": 25,
+      "columns": 7,
+      "size_bytes": 1379,
+      "description": "One row per purchase month; all-status and delivered-only payment totals are separated."
+    },
+    {
+      "dataset": "order_status",
+      "file": "order_status.csv",
+      "rows": 8,
+      "columns": 3,
+      "size_bytes": 200,
+      "description": "All-time distribution of order statuses."
+    },
+    {
+      "dataset": "monthly_order_status",
+      "file": "monthly_order_status.csv",
+      "rows": 136,
+      "columns": 3,
+      "size_bytes": 3413,
+      "description": "Order counts by purchase month and order status."
+    },
+    {
+      "dataset": "monthly_state_order_status",
+      "file": "monthly_state_order_status.csv",
+      "rows": 1390,
+      "columns": 4,
+      "size_bytes": 37920,
+      "description": "Order counts by purchase month, customer state and order status."
+    },
+    {
+      "dataset": "category_performance",
+      "file": "category_performance.csv",
+      "rows": 74,
+      "columns": 6,
+      "size_bytes": 4006,
+      "description": "Delivered order-item value and freight aggregated by product category."
+    },
+    {
+      "dataset": "monthly_category_performance",
+      "file": "monthly_category_performance.csv",
+      "rows": 1273,
+      "columns": 7,
+      "size_bytes": 73050,
+      "description": "Delivered order-item metrics by month and product category."
+    },
+    {
+      "dataset": "rfm_segments",
+      "file": "rfm_segments.csv",
+      "rows": 8,
+      "columns": 6,
+      "size_bytes": 511,
+      "description": "Customer counts and RFM metrics by segment from vw_customer_rfm."
+    },
+    {
+      "dataset": "customer_frequency",
+      "file": "customer_frequency.csv",
+      "rows": 9,
+      "columns": 5,
+      "size_bytes": 323,
+      "description": "Delivered purchase frequency distribution from vw_customer_rfm."
+    },
+    {
+      "dataset": "customer_type_metrics",
+      "file": "customer_type_metrics.csv",
+      "rows": 2,
+      "columns": 7,
+      "size_bytes": 263,
+      "description": "Delivered order and recorded payment comparison for one-time and repeat customers."
+    },
+    {
+      "dataset": "cohort_retention",
+      "file": "cohort_retention.csv",
+      "rows": 278,
+      "columns": 6,
+      "size_bytes": 10483,
+      "description": "Long-format cohort retention data from vw_cohort_retention."
+    },
+    {
+      "dataset": "state_performance",
+      "file": "state_performance.csv",
+      "rows": 27,
+      "columns": 4,
+      "size_bytes": 684,
+      "description": "Delivered order metrics by customer state."
+    },
+    {
+      "dataset": "monthly_state_performance",
+      "file": "monthly_state_performance.csv",
+      "rows": 556,
+      "columns": 5,
+      "size_bytes": 16576,
+      "description": "Delivered order and payment metrics by month and customer state."
+    },
+    {
+      "dataset": "payment_methods",
+      "file": "payment_methods.csv",
+      "rows": 5,
+      "columns": 5,
+      "size_bytes": 279,
+      "description": "Recorded payment values grouped by payment method, across all order statuses."
+    },
+    {
+      "dataset": "delivery_performance",
+      "file": "delivery_performance.csv",
+      "rows": 23,
+      "columns": 5,
+      "size_bytes": 901,
+      "description": "Delivery-time and on-time metrics for delivered orders with usable dates."
+    },
+    {
+      "dataset": "data_quality",
+      "file": "data_quality.csv",
+      "rows": 7,
+      "columns": 4,
+      "size_bytes": 923,
+      "description": "Documented SQL checks for known payment, geographic and lookup-quality findings."
+    }
+  ],
+  "notes": [
+    "All extracts are aggregated analytical data; customer identifiers are not exported.",
+    "Payment value is not profit or accounting revenue.",
+    "Monthly recorded payments include all order statuses unless a dataset description says otherwise.",
+    "State-level distinct shopper counts may overlap across states."
+  ]
+}

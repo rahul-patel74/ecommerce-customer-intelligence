@@ -1,7 +1,15 @@
-
-# Raw and processed datasets
+# Raw and processed datasets (never commit source or full transformed tables)
 data/raw/
 data/processed/
+
+# App refresh staging directory only; curated aggregate app_data/*.csv is tracked
+app_data/.staging/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
 
 # Python cache files
 __pycache__/
@@ -16,11 +24,6 @@ venv/
 .venv/
 env/
 
-# Environment variables and secrets
-.env
-.env.*
-!.env.example
-
 # IDE settings
 .vscode/
 .idea/
@@ -33,12 +36,13 @@ desktop.ini
 # Temporary and log files
 *.log
 *.tmp
+*.bak
 
 # Python testing and coverage
 .pytest_cache/
 .coverage
 htmlcov/
 
-# Power BI temporary and backup files
-*.tmp
-*.bak
+# Local report outputs
+exports/
+*.local.pdf

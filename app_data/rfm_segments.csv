@@ -1,0 +1,9 @@
+customer_segment,customer_count,average_recency,average_frequency,average_monetary,total_monetary
+Recent One-time Customers,36118,90.90,1.00,164.29,5933990.14
+High-Value One-time Lapsed,21024,394.51,1.00,239.34,5031852.17
+Needs Attention,18614,220.21,1.03,155.76,2899230.62
+Hibernating,15368,396.42,1.00,55.74,856583.73
+Potential Loyalists,1080,89.00,2.00,296.99,320754.35
+At Risk,997,381.80,2.08,295.47,294583.92
+Loyal Customers,125,126.94,3.14,460.08,57510.37
+Champions,32,83.56,4.97,873.64,27956.47

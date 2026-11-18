@@ -1,0 +1,8 @@
+issue,flagged_rows,severity,decision
+Credit-card payments with zero installments,2,Review,Preserved and flagged; intended installment count is unknown.
+Geolocation rows outside approximate Brazil bounds,29,Review,"Preserved and flagged; bounding box is a screening rule, not an official border."
+Excess exact duplicate geolocation rows,261831,Information,Retained; repeat rows were not assumed to be erroneous.
+Customer ZIP records without a geolocation match,278,Information,Customer records retained; no geographic coordinates were fabricated.
+Seller ZIP records without a geolocation match,7,Information,Seller records retained; no geographic coordinates were fabricated.
+Products with a missing category,610,Information,Product records retained; missing category values were not imputed.
+Products assigned to untranslated categories,13,Information,Original category names retained; no translation was invented.

@@ -1,0 +1,6 @@
+payment_type,payment_records,orders_using_method,recorded_payment_value,average_payment_record
+credit_card,76795,76505,12542084.19,163.32
+boleto,19784,19784,2869361.27,145.03
+voucher,5775,3866,379436.87,65.70
+debit_card,1529,1528,217989.79,142.57
+not_defined,3,3,0.00,0.00
