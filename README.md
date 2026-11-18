@@ -1,6 +1,6 @@
 # E-commerce Customer Intelligence & Retention Analytics
 
-An end-to-end data analytics project using Python, MySQL and Power BI to explore customer purchasing behavior, spending patterns, RFM segmentation and repeat-purchase retention.
+An end-to-end data analytics project using Python, MySQL, SQL and Power BI to explore customer purchasing behavior, spending patterns, RFM segmentation and repeat-purchase retention.
 
 **Repository:** [GitHub - E-commerce Customer Intelligence](https://github.com/rahul-patel74/ecommerce-customer-intelligence)
 
@@ -14,7 +14,7 @@ This project analyzes the Brazilian E-Commerce Public Dataset by Olist to invest
 
 The project follows an end-to-end analytics workflow involving:
 
-- Python for data understanding and data-quality exploration.
+- Python for data understanding, cleaning and data-quality validation.
 - MySQL for relational database management and SQL-based business analysis.
 - Power BI for interactive visualization and customer retention reporting.
 
@@ -64,8 +64,8 @@ The raw and processed data directories are excluded from Git through `.gitignore
 
 | Technology | Purpose |
 |---|---|
-| Python | Data understanding and quality exploration |
-| Pandas | Data inspection and manipulation |
+| Python | Data understanding, cleaning and quality validation |
+| Pandas | Data inspection, cleaning and manipulation |
 | NumPy | Numerical operations |
 | Jupyter Notebook | Interactive Python analysis |
 | MySQL | Relational database management |
@@ -92,9 +92,80 @@ Activities included:
 - ZIP-code and product-category lookup validation.
 - Identification of unmatched records and unusual data patterns.
 
-The findings and data-quality issues were documented before proceeding with the SQL analysis.
+The findings and data-quality issues were documented before proceeding with the cleaning and SQL analysis.
 
-### 5.2 MySQL Database Design and Data Loading
+### 5.2 Python Data Cleaning and Validation
+
+Implemented a Python-based data cleaning and validation pipeline using Pandas and NumPy.
+
+The pipeline covered all nine datasets and included the following operations:
+
+**Text normalization**
+- Removed leading and trailing whitespace from text columns.
+- Converted whitespace-only review titles into missing values: 2.
+- Converted whitespace-only review messages into missing values: 27.
+
+**Datetime conversion**
+- Converted eight date columns across orders, order items and reviews into datetime format.
+- Successfully parsed all non-missing date values.
+- Found zero invalid date values.
+
+**Data type standardization**
+- Converted customer, seller and geolocation ZIP prefixes into string data types to preserve leading zeros.
+- Converted seven product attributes into Pandas nullable integer (`Int64`) types after verifying that all non-missing values were whole numbers.
+
+**Duplicate investigation**
+- Identified 261,831 exact duplicate rows in the geolocation dataset.
+- Found no exact duplicate rows in the other eight datasets.
+- Retained geolocation duplicates rather than removing records without sufficient evidence that they were invalid.
+
+**Key and relationship validation**
+- Validated eight primary and composite key definitions.
+- Validated six core foreign-key relationships.
+- All tested keys and core relationships passed validation.
+
+**Lookup validation**
+
+The following supplementary lookup gaps were identified:
+
+| Lookup Relationship | Unmatched Rows | Unique Values |
+|---|---:|---:|
+| Customer ZIP to geolocation | 278 | 157 |
+| Seller ZIP to geolocation | 7 | 7 |
+| Product categories to translations | 13 | 2 |
+
+Additionally, 610 products had missing category values.
+
+The two unmatched product categories were:
+- `portateis_cozinha_e_preparadores_de_alimentos`
+- `pc_gamer`
+
+These records were preserved rather than assigning invented postal-code mappings or category translations.
+
+**Numeric validation and anomaly investigation**
+
+Two credit-card payment records contained zero installments. These were retained and flagged for investigation.
+
+Twenty-nine geolocation records were outside the approximate Brazil geographic bounding box used for screening. These were also retained and flagged.
+
+Two quality-control columns were added:
+
+- `has_installment_count_issue`
+- `is_outside_approx_brazil_bounds`
+
+The geographic screening rule is an approximate bounding-box check, not an official country-boundary test.
+
+**Final integrity and export validation**
+
+- All nine datasets retained their original row counts.
+- No source records were deleted.
+- Expected data types were verified.
+- All nine processed CSV files were exported into `data/processed/`.
+- Every exported file passed row-count and column-count verification.
+
+Detailed findings and cleaning decisions are documented in `reports/03_python_data_cleaning.md`.
+
+### 5.3 MySQL Database Design and Data Loading
 
 Created the MySQL database:
 
@@ -124,7 +195,7 @@ Implemented:
 
 All nine source datasets were successfully imported and their final row counts were verified.
 
-### 5.3 SQL Business Analysis
+### 5.4 SQL Business Analysis
 
 Performed business analysis using MySQL and SQL concepts, including:
 
@@ -141,7 +212,7 @@ Performed business analysis using MySQL and SQL concepts, including:
 
 The analysis focused on customer purchasing behavior, spending patterns, geographic distribution, RFM segmentation and cohort retention.
 
-### 5.4 Customer Purchasing Behavior
+### 5.5 Customer Purchasing Behavior
 
 Analyzed customer purchase frequency and spending behavior.
 
@@ -159,7 +230,7 @@ Customer identity was determined using `customer_unique_id`, which identifies th
 
 Only delivered orders were included in these customer behavior analyses.
 
-### 5.5 RFM Customer Segmentation
+### 5.6 RFM Customer Segmentation
 
 Implemented Recency, Frequency and Monetary analysis to understand customer value and purchasing behavior.
 
@@ -184,7 +255,7 @@ Customers were assigned RFM scores and classified into eight segments:
 
 A MySQL view named `vw_customer_rfm` was created to provide customer-level RFM metrics, scores and segment classifications.
 
-### 5.6 Cohort Retention Analysis
+### 5.7 Cohort Retention Analysis
 
 Performed monthly cohort analysis to understand how frequently customers returned after their first delivered purchase.
 
@@ -329,7 +400,8 @@ The PBIX file can be opened using Power BI Desktop. The MySQL connection must be
 ecommerce-customer-intelligence/
 │
 ├── notebooks/
-│   └── 01_data_understanding.ipynb
+│   ├── 01_data_understanding.ipynb
+│   └── 02_data_cleaning.ipynb
 │
 ├── powerbi/
 │   ├── ecommerce_customer_cohort_dashboard.png
@@ -337,6 +409,7 @@ ecommerce-customer-intelligence/
 │
 ├── reports/
 │   ├── 02_data_quality_findings.md
+│   ├── 03_python_data_cleaning.md
 │   ├── business_insights.md
 │   └── mermaid-diagram.png
 │
@@ -397,17 +470,20 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
-### Step 3: Run the Python Notebook
+### Step 3: Run the Python Notebooks
 
-Open:
+Run the notebooks in the following order:
 
-```text
-notebooks/01_data_understanding.ipynb
-```
+1. `notebooks/01_data_understanding.ipynb`
+2. `notebooks/02_data_cleaning.ipynb`
 
-Run the notebook cells in sequence to explore the datasets and perform data-quality checks.
+The first notebook performs data exploration and quality assessment.
 
-Make sure the notebook's relative data path points to the local `data/raw/` directory.
+The second notebook performs data cleaning, validation, anomaly flagging and exports the nine processed datasets into:
+
+`data/processed/`
+
+The original source files in `data/raw/` remain unchanged.
 
 ### Step 4: Set Up MySQL
 
@@ -447,12 +523,16 @@ Execute the SQL scripts in this order in a fresh database environment:
 - The dataset does not establish the reasons behind low repeat purchasing.
 - Recorded payment value is not equivalent to profit, net revenue or complete customer lifetime value.
 - Unmatched geographic and category lookup records were retained and documented rather than assigned invented values.
+- Two credit-card payment records with zero installments were flagged and retained.
+- Twenty-nine geolocation records outside the approximate Brazil bounding box were flagged and retained.
+- Geolocation duplicates were retained because repeated records alone did not establish that they were invalid.
 
 ## 11. Project Outcome
 
 This project demonstrates an end-to-end data analytics workflow involving:
 
 - Multi-table dataset exploration and data-quality assessment.
+- Python-based data cleaning and validation.
 - Relational database design and data loading.
 - SQL-based customer and business analysis.
 - Customer segmentation using RFM methodology.
